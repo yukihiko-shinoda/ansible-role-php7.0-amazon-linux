@@ -40,19 +40,16 @@
     group: root
     mode: 0644
 
-- name: check whether composer is installed or not for idempotency (just in case)
-  stat:
-    path: /usr/bin/composer
-  register: stat_composer
-
 - name: download installation shell for composer
   uri:
     url: https://raw.githubusercontent.com/composer/getcomposer.org/1b137f8bf6db3e79a38a5bc45324414a6b1f9df2/web/installer
     dest: /tmp/install_composer.php
+    creates: /tmp/install_composer.php
 
 - name: install composer
   command: php /tmp/install_composer.php --install-dir=/usr/local/bin --filename=composer
-  when: not stat_composer.stat.exists
+  args:
+    creates: /usr/bin/composer
 
 - name: set symlink for composer
   file:
