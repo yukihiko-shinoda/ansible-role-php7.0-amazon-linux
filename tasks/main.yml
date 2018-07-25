@@ -10,6 +10,7 @@
 - name: install php
   yum:
     name: "{{ item }}"
+    enablerepo: epel
   with_items:
     - php-php-gettext
     - php-tcpdf
@@ -49,7 +50,7 @@
 - name: install composer
   command: php /tmp/install_composer.php --install-dir=/usr/local/bin --filename=composer
   args:
-    creates: /usr/bin/composer
+    creates: /usr/local/bin/composer
 
 - name: set symlink for composer
   file:
