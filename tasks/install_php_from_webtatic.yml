@@ -1,0 +1,23 @@
+---
+- name: install epel yum repository to install php gettext module
+  yum:
+    name: epel-release
+
+- name: install webtatic yum repository
+  yum:
+    name: https://mirror.webtatic.com/yum/el6/latest.rpm
+
+- name: install php
+  yum:
+    name: "{{ item }}"
+    enablerepo: epel
+    disablerepo: amzn-main
+  with_items: '{{ php_7_0_library_codeanywhere }}'
+
+- name: set config file for Apache
+  template:
+    src: php.conf.j2
+    dest: /etc/httpd/conf.d/php.conf
+    owner: root
+    group: root
+    mode: 0644

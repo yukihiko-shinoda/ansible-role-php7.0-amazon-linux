@@ -1,0 +1,44 @@
+---
+- name: install dependency of php to disable amzn-main repository when install php
+  yum:
+    name: '{{ item }}'
+  with_items:
+    - libpng-devel
+    - libxslt-devel
+    - compat-gmp4
+    - libjpeg-devel
+    - libtidy-devel
+    - freetype-devel
+    - libXpm
+    - krb5-devel
+    - postgresql-libs
+    - libedit
+
+- name: install php
+  yum:
+    name: "{{ item }}"
+    disablerepo: amzn-main
+  with_items: '{{ php_7_0_library_heroku }}'
+
+- name: install epel yum repository to install php gettext module
+  yum:
+    name: epel-release
+
+- name: install php
+  yum:
+    name: php-php-gettext
+    enablerepo: epel
+    disablerepo: amzn-main
+
+- name: enable service on boot (excluding case when docker container)
+  service:
+    name: php-fpm
+    enabled: "{{ 'no' if 'container' in group_names else 'yes' }}"
+
+- name: set config file for Apache
+  template:
+    src: php-fpm.conf.j2
+    dest: /etc/httpd/conf.d/php-fpm.conf
+    owner: root
+    group: root
+    mode: 0644

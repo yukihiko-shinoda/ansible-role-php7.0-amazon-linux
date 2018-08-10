@@ -1,0 +1,41 @@
+---
+php_7_0_library_codeanywhere:
+  - php-php-gettext
+  - php-tcpdf
+  - php-tcpdf-dejavu-sans-fonts
+  - php70w
+  - php70w-bcmath
+  - php70w-cli
+  - php70w-common
+  - php70w-gd
+  - php70w-intl
+  - php70w-mbstring
+  - php70w-mcrypt
+  - php70w-mysql
+  - php70w-opcache
+  - php70w-pecl-apcu
+  - php70w-pecl-redis
+  - php70w-pecl-xdebug
+  - php70w-pdo
+  - php70w-process
+  - php70w-tidy
+  - php70w-xml
+php_7_0_library_heroku:
+# Require to install specification of Heroku by yum
+  - php70u-common
+  - php70u-bcmath
+  - php70u-mbstring
+# Specification of Heroku
+  - php70u-json
+  - php70u-cli
+  - php70u-fpm
+  - php70u-mysqlnd
+  - php70u-zip
+  - php70u-opcache
+  - openssl-devel
+  - php70u-pgsql
+  - php70u-xml
+  - php70u-pecl-apcu
+  - php70u-pecl-redis
+# For development
+  - php70u-pecl-xdebug
